@@ -22,7 +22,7 @@ Consider that at high sampling rates the MCU collects 3_axes x sampling_rate flo
 ``` python
 sampling_rate    = 1000  # Hz
 acquisition_time = 1     # seconds
-g_range = 2              # max measured value is pm 2g
+g_range          = 2     # max measured value is pm 2g
 accelerometer = Accelerometer()
 accelerometer.set_g_range(g_range)
 accelerometer.set_sampling_rate(sampling_rate)
