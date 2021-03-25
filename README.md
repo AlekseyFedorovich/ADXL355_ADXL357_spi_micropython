@@ -19,7 +19,19 @@ mosi/sda          | vspi mosi (D23)
 Consider that at high sampling rates the MCU collects 3_axes x sampling_rate floats per second. This may result in ending the available RAM of MCUs very quickly: set your acquisition time accordingly and clear data arrays when you are done with them. 
 
 ## Examples
-TODO
+``` python
+sampling_rate    = 1000  # Hz
+acquisition_time = 1     # seconds
+g_range = 2              # max measured value is pm 2g
+accelerometer = Accelerometer()
+accelerometer.set_g_range(g_range)
+accelerometer.set_sampling_rate(sampling_rate)
+try:
+  buf, T = accelerometer.read_continuos_xyz_fromfifo(acquisition_time)
+except MemoryError:
+  error = 'Too much measure requested: try lowering sampling_rate and/or acquisition_time (approx 25k samples per each axis)'
+x, y, z = accelerometer.listofmeasuresonthreeaxes2g(buf, g_range)  # arrays (in principle) of length acquisition_time * sampling_rate converted in units of g; this conversion should be performed outside the device to save memory
+```
 
 ## WARNING
 * be sure to set accelerometer model in accelerometer.py according to the mounted accelerometer on device
